@@ -1,0 +1,174 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/YOUR_USERNAME/open-illuminations-standard/main/schema.json",
+  "title": "Open Illuminations Standard Manifest",
+  "description": "Schema for OIS 1.0 manifest files describing synchronized audiobook artwork.",
+  "type": "object",
+  "required": [
+    "manifest_version",
+    "book_title",
+    "book_author",
+    "pack_title",
+    "pack_version",
+    "authored_for_duration_seconds",
+    "keyframes"
+  ],
+  "properties": {
+    "manifest_version": {
+      "type": "string",
+      "description": "The version of the OIS spec (e.g., '1.3')."
+    },
+    "book_title": {
+      "type": "string",
+      "description": "Title of the audiobook."
+    },
+    "book_author": {
+      "type": "string",
+      "description": "Author of the audiobook."
+    },
+    "pack_title": {
+      "type": "string",
+      "description": "Title of the illumination pack."
+    },
+    "pack_version": {
+      "type": "string",
+      "description": "Version of the pack (e.g., '1.0.0')."
+    },
+    "authored_for_duration_seconds": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Total duration of the audio file used during creation (seconds)."
+    },
+    "pack_author": {
+      "type": "string",
+      "description": "Creator of the pack."
+    },
+    "author_website": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL for the pack creator."
+    },
+    "pack_description": {
+      "type": "string",
+      "description": "Description of the pack contents."
+    },
+    "art_type": {
+      "type": "string",
+      "description": "Origin of art (e.g., 'ai-generated', 'original')."
+    },
+    "curation_type": {
+      "type": "string",
+      "description": "Method of curation."
+    },
+    "content_rating": {
+      "type": "string",
+      "description": "Content suitability (e.g., 'teen')."
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Keywords describing the pack."
+    },
+    "orientation": {
+      "type": "string",
+      "enum": ["landscape", "portrait", "square", "auto"],
+      "description": "Intended orientation for this specific manifest file."
+    },
+    "image_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "pack_creation_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "variants": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/variant"
+      },
+      "description": "Available variants referencing other manifest files."
+    },
+    "keyframes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/keyframe"
+      },
+      "description": "Timeline of visual events."
+    }
+  },
+  "definitions": {
+    "keyframe": {
+      "type": "object",
+      "required": ["start", "image", "view"],
+      "properties": {
+        "start": {
+          "type": "string",
+          "pattern": "^\\d{1,}:\\d{2}:\\d{2}\\.\\d{2}$",
+          "description": "Timestamp in HH:MM:SS.ss format."
+        },
+        "image": {
+          "type": "string",
+          "description": "Filename of the image in the zip root."
+        },
+        "view": {
+          "$ref": "#/definitions/view"
+        },
+        "quote": {
+          "type": ["string", "null"],
+          "description": "Text to display. Use '.' to propagate previous text."
+        },
+        "title": {
+          "type": ["string", "null"],
+          "description": "Chapter/Section title. Use '.' to propagate."
+        },
+        "notes": {
+          "type": ["string", "null"],
+          "description": "Curator notes. Use '.' to propagate."
+        }
+      }
+    },
+    "view": {
+      "type": "object",
+      "required": ["scale", "pan_x", "pan_y"],
+      "properties": {
+        "scale": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Zoom relative to screen container (1.0 = fit)."
+        },
+        "pan_x": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Normalized X focal point (0.0 to 1.0)."
+        },
+        "pan_y": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Normalized Y focal point (0.0 to 1.0)."
+        }
+      }
+    },
+    "variant": {
+      "type": "object",
+      "required": ["slug", "name"],
+      "properties": {
+        "slug": {
+          "type": "string",
+          "description": "Identifier used to find manifest.{slug}.json."
+        },
+        "name": {
+          "type": "string",
+          "description": "Human-readable name."
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
