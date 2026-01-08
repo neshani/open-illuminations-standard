@@ -1,8 +1,8 @@
-
 # Open Illuminations Standard (OIS)
 
 **Version:** 1.0 (Draft)  
-**Status:** Active Development
+**Status:** Active Development  
+**JSON Schema:** [schema.json](https://raw.githubusercontent.com/neshani/open-illuminations-standard/main/schema.json)
 
 ## Overview
 
@@ -126,7 +126,7 @@ The `variants` array in `manifest.json` allows for different choreography based 
 
 ## Manifest Reference
 
-The `manifest.json` file is the entry point for the illumination pack.
+The `manifest.json` file is the entry point for the illumination pack. You can validate files using the [official JSON Schema](https://raw.githubusercontent.com/neshani/open-illuminations-standard/main/schema.json).
 
 ### Root Object
 
@@ -158,25 +158,6 @@ The `manifest.json` file is the entry point for the illumination pack.
 | `title` | String | Optional | A chapter or section title associated with this moment. |
 | `notes` | String | Optional | Curator notes or context. |
 
-### View Object
-
-| Field | Type | Status | Description |
-| :--- | :--- | :--- | :--- |
-| `scale` | Float | **Required** | Zoom level relative to the screen container (`1.0` = fit). |
-| `pan_x` | Float | **Required** | X focal point (`0.0` to `1.0`). |
-| `pan_y` | Float | **Required** | Y focal point (`0.0` to `1.0`). |
-
-### Variant Object
-
-Used to define alternative manifests for specific scenarios (e.g., Desktop/Landscape).
-
-| Field | Type | Status | Description |
-| :--- | :--- | :--- | :--- |
-| `slug` | String | **Required** | Unique identifier (e.g., "desktop"). Used to find the file `manifest.{slug}.json`. |
-| `name` | String | **Required** | Human-readable name (e.g., "Desktop Mode"). |
-| `description` | String | Optional | Description of what makes this variant different. |
-
-
 ### Text Propagation (The "Dot" Rule)
 
 To prevent file bloat and avoid re-triggering UI overlays during smooth pans/zooms, OIS uses a specific character to signify text "Carry Over".
@@ -207,6 +188,24 @@ To prevent file bloat and avoid re-triggering UI overlays during smooth pans/zoo
   }
 ]
 ```
+
+### View Object
+
+| Field | Type | Status | Description |
+| :--- | :--- | :--- | :--- |
+| `scale` | Float | **Required** | Zoom level relative to the screen container (`1.0` = fit). |
+| `pan_x` | Float | **Required** | X focal point (`0.0` to `1.0`). |
+| `pan_y` | Float | **Required** | Y focal point (`0.0` to `1.0`). |
+
+### Variant Object
+
+Used to define alternative manifests for specific scenarios (e.g., Desktop/Landscape).
+
+| Field | Type | Status | Description |
+| :--- | :--- | :--- | :--- |
+| `slug` | String | **Required** | Unique identifier (e.g., "desktop"). Used to find the file `manifest.{slug}.json`. |
+| `name` | String | **Required** | Human-readable name (e.g., "Desktop Mode"). |
+| `description` | String | Optional | Description of what makes this variant different. |
 
 ---
 
