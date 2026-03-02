@@ -83,8 +83,7 @@
     },
     "orientation": {
       "type": "string",
-      "enum": ["landscape", "portrait", "square", "auto"],
-      "description": "Intended orientation for this specific manifest file."
+      "description": "Intended orientation for this specific manifest file. (Legacy field, now flexible)."
     },
     "image_count": {
       "type": "integer",
